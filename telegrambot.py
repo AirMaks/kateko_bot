@@ -29,11 +29,10 @@ def echo_all(message):
         bot.reply_to(message, message.text, reply_markup=markup_menu)
 
 
-schedule.every().day.at("20:40").do(send_welcome)
-
-
 bot.polling(none_stop=True, timeout=123)
 
+
+schedule.every().day.at("21:00").do(send_welcome)
 while True:
     schedule.run_pending()
     time.sleep(1)
