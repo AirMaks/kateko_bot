@@ -1,1 +1,1 @@
-worker: python telegram.py $PORT
+worker: python telegrambot.py $PORT
