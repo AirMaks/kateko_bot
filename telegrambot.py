@@ -2,8 +2,7 @@ import telebot
 from telebot import types
 import const
 import schedule
-from datetime import time
-
+import time
 
 bot = telebot.TeleBot(const.API_TOKEN)
 markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -14,27 +13,28 @@ btn_delivery = types.KeyboardButton('Способы доставки')
 markup_menu.add(btn_address, btn_payment, btn_delivery)
 
 
-@bot.message_handler(commands=['start', 'help'])
+# @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     bot.reply_to(message, 'Привет, сегодня тренировка в 18.00, ты придёшь?', reply_markup=markup_menu)
 
 
-@bot.message_handler(func=lambda message: True)
-def echo_all(message):
-    if message.text == 'Способы доставки':
-        bot.reply_to(message, "Доставка курьером, самовывоз, почта России", reply_markup=markup_menu)
-    elif message.text == "Способы оплаты":
-        bot.reply_to(message, "Наличные, По карте, Банковский перевод", reply_markup=markup_menu)
-    else:
-        bot.reply_to(message, message.text, reply_markup=markup_menu)
+schedule.every(2).minutes.do(send_welcome)
 
 
-bot.polling(none_stop=True, timeout=123)
+# @bot.message_handler(func=lambda message: True)
+# def echo_all(message):
+#     if message.text == 'Способы доставки':
+#         bot.reply_to(message, "Доставка курьером, самовывоз, почта России", reply_markup=markup_menu)
+#     elif message.text == "Способы оплаты":
+#         bot.reply_to(message, "Наличные, По карте, Банковский перевод", reply_markup=markup_menu)
+#     else:
+#         bot.reply_to(message, message.text, reply_markup=markup_menu)
 
 
-schedule.every().day.at("21:00").do(send_welcome)
+# bot.polling(none_stop=True, timeout=123)
+# schedule.every().day.at("10:30").do(send_welcome)
+
+
 while True:
     schedule.run_pending()
     time.sleep(1)
-
-
