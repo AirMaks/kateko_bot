@@ -14,12 +14,12 @@ markup_menu.add(btn_address, btn_payment, btn_delivery)
 
 
 # @bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-    bot.reply_to(message, 'Привет, сегодня тренировка в 18.00, ты придёшь?', reply_markup=markup_menu)
+def send_welcome():
+    # bot.reply_to(message, 'Привет, сегодня тренировка в 18.00, ты придёшь?', reply_markup=markup_menu)
+    print('Привет, сегодня тренировка в 18.00, ты придёшь?')
 
 
 schedule.every(2).minutes.do(send_welcome)
-
 
 # @bot.message_handler(func=lambda message: True)
 # def echo_all(message):
