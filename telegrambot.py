@@ -1,6 +1,8 @@
 import telebot
 from telebot import types
 import const
+import schedule
+from datetime import time
 
 
 bot = telebot.TeleBot(const.API_TOKEN)
@@ -27,5 +29,13 @@ def echo_all(message):
         bot.reply_to(message, message.text, reply_markup=markup_menu)
 
 
+schedule.every().day.at("20:40").do(send_welcome)
+
+
 bot.polling(none_stop=True, timeout=123)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+
 
